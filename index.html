@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Map</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <style>
+        .main {
+            height: 100vh;
+        }
+        #placesList {
+            background-color: red;
+            min-width: 200px;
+            max-width: 200px;
+        }
+        #mapcontainer {
+            background-color: yellow;
+        }
+        #map {
+            background-color: blue;
+            height: calc(100% - 250px);
+        }
+        #placeDetails {
+            background-color: green;
+            height: 250px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row main">
+            <div id="placesList" class="col"></div>
+            <div id="mapcontainer" class="col">
+                <div id="map" class="col-12">
+                    <button>Show sidebar</button>
+                    <button>Show details</button>
+                </div>
+                <div id="placeDetails" class="col-12"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkMtk8WEwUCO6YUhx9JxdcZkAmFp7wN2A&libraries=places"></script>
+</body>
+</html>
