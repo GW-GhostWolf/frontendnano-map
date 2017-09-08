@@ -4,8 +4,17 @@
     <meta charset="utf-8">
     <title>Map</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
         .main {
             height: 100vh;
         }
@@ -13,9 +22,12 @@
             background-color: red;
             min-width: 200px;
             max-width: 200px;
+            height: 100%;
         }
         #mapcontainer {
             background-color: yellow;
+            /*overflow: hidden;*/
+            flex-grow: 1;
         }
         #map {
             background-color: blue;
@@ -28,18 +40,14 @@
     </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row main">
-            <div id="placesList" class="col"></div>
-            <div id="mapcontainer" class="col">
-                <div id="map" class="col-12">
-                    <button>Show sidebar</button>
-                    <button>Show details</button>
-                </div>
-                <div id="placeDetails" class="col-12"></div>
-            </div>
+    <div id="placesList" class=""></div>
+    <div id="mapcontainer" class="">
+        <div id="map" class="">
+            <button>Show sidebar</button>
+            <button>Show details</button>
         </div>
+        <div id="placeDetails" class=""></div>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkMtk8WEwUCO6YUhx9JxdcZkAmFp7wN2A&libraries=places"></script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkMtk8WEwUCO6YUhx9JxdcZkAmFp7wN2A&libraries=places"></script>-->
 </body>
 </html>
