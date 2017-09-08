@@ -4,50 +4,19 @@
     <meta charset="utf-8">
     <title>Map</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        html, body {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-        .main {
-            height: 100vh;
-        }
-        #placesList {
-            background-color: red;
-            min-width: 200px;
-            max-width: 200px;
-            height: 100%;
-        }
-        #mapcontainer {
-            background-color: yellow;
-            /*overflow: hidden;*/
-            flex-grow: 1;
-        }
-        #map {
-            background-color: blue;
-            height: calc(100% - 250px);
-        }
-        #placeDetails {
-            background-color: green;
-            height: 250px;
-        }
-    </style>
+    <link href="css/main.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="placesList" class=""></div>
+    <div id="placesList" data-bind="css: { hide: !showPlaces() }"></div>
     <div id="mapcontainer" class="">
-        <div id="map" class="">
-            <button>Show sidebar</button>
-            <button>Show details</button>
+        <div id="map" data-bind="css: { hideDetails: !showDetails() }">
+            <button data-bind="click: toggleSidebar">Toggle sidebar</button>
+            <button data-bind="click: toggleDetails">Toggle details</button>
         </div>
-        <div id="placeDetails" class=""></div>
+        <div id="placeDetails"></div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+    <script src="js/testing.js"></script>
     <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkMtk8WEwUCO6YUhx9JxdcZkAmFp7wN2A&libraries=places"></script>-->
 </body>
 </html>

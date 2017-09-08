@@ -1,0 +1,46 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.main {
+    height: 100vh;
+}
+
+#placesList {
+    background-color: red;
+    min-width: 200px;
+    max-width: 200px;
+    height: 100%;
+}
+
+#placesList.hide {
+    margin-left: -200px;
+}
+
+#mapcontainer {
+    background-color: yellow;
+    /*overflow: hidden;*/
+    flex-grow: 1;
+}
+
+#map {
+    background-color: blue;
+    height: calc(100% - 250px);
+}
+
+#map.hideDetails {
+    height: 100%;
+}
+
+#placeDetails {
+    background-color: green;
+    height: 250px;
+}
