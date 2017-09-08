@@ -2,21 +2,27 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Map</title>
+    <title>Pet Store Map</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="css/main.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="placesList" data-bind="css: { hide: !showPlaces() }"></div>
+    <div id="placesList" data-bind="css: { hide: !showPlaces() }, foreach: PlaceList">
+        <place params="{ place: $data }" data-bind="visible: visible"></place>
+        <hr data-bind="visible: visible" />
+    </div>
     <div id="mapcontainer" class="">
         <div id="map" data-bind="css: { hideDetails: !showDetails() }">
             <button data-bind="click: toggleSidebar">Toggle sidebar</button>
             <button data-bind="click: toggleDetails">Toggle details</button>
         </div>
-        <div id="placeDetails"></div>
+        <div id="placeDetails">
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
-    <script src="js/testing.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/place/place.js"></script>
+    <script src="js/app.js"></script>
     <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkMtk8WEwUCO6YUhx9JxdcZkAmFp7wN2A&libraries=places"></script>-->
 </body>
 </html>
