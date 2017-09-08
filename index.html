@@ -7,9 +7,12 @@
     <link href="css/main.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="placesList" data-bind="css: { hide: !showPlaces() }, foreach: PlaceList">
-        <place params="{ place: $data }" data-bind="visible: visible"></place>
-        <hr data-bind="visible: visible" />
+    <div id="placesList" data-bind="css: { hide: !showPlaces() }">
+        <input type="text" data-bind="textinput: placeFilter" />
+        <div data-bind="foreach: filteredPlaces">
+            <place params="{ place: $data }" data-bind="visible: visible"></place>
+            <hr data-bind="visible: visible" />
+        </div>
     </div>
     <div id="mapcontainer" class="">
         <div id="map" data-bind="css: { hideDetails: !showDetails() }">
