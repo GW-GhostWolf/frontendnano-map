@@ -75,3 +75,9 @@ html, body {
 #placeDetails.hide {
     top: 100%;
 }
+
+@media (min-width: 576px) {
+    .hide-gt-xs {
+        display: none;
+    }
+}

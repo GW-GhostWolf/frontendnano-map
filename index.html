@@ -9,6 +9,7 @@
 <body>
     <div id="placesList" data-bind="css: { hide: !showPlaces() }">
         <input type="text" data-bind="textinput: placeFilter" />
+        <button data-bind="click: toggleSidebar" class="hide-gt-xs">Toggle sidebar</button>
         <div data-bind="foreach: filteredPlaces">
             <place params="{ place: $data }" data-bind="visible: visible"></place>
             <hr data-bind="visible: visible" />
