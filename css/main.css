@@ -52,21 +52,26 @@ html, body {
 }
 
 #mapcontainer {
-    background-color: yellow;
+    position: relative;
     overflow: hidden;
     flex-grow: 1;
+    text-align: right;
 }
 
 #map {
     background-color: blue;
-    height: calc(100% - 250px);
-}
-
-#map.hideDetails {
     height: 100%;
 }
 
 #placeDetails {
     background-color: green;
+    position: absolute;
+    top: calc(100% - 250px);
     height: 250px;
+    width: 100%;
+    z-index: 5;
+}
+
+#placeDetails.hide {
+    top: 100%;
 }

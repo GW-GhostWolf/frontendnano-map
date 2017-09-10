@@ -14,12 +14,12 @@
             <hr data-bind="visible: visible" />
         </div>
     </div>
-    <div id="mapcontainer" class="">
-        <div id="map" data-bind="css: { hideDetails: !showDetails() }">
+    <div id="mapcontainer">
+        <div id="map">
             <button data-bind="click: toggleSidebar">Toggle sidebar</button>
             <button data-bind="click: toggleDetails">Toggle details</button>
         </div>
-        <div id="placeDetails">
+        <div id="placeDetails" data-bind="css: { hide: !showDetails() }">
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
