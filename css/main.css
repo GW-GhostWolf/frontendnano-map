@@ -20,6 +20,7 @@ html, body {
     max-width: 250px;
     height: 100%;
     padding: 10px;
+    overflow-y: auto;
 }
 
 #placesList.hide {
