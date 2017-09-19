@@ -6,12 +6,14 @@ map.initMap = function () {
         center: { lat: 29.4241219, lng: -98.4936282 },
         zoom: 12
     });
+    map.bounds = new google.maps.LatLngBounds();
     app.PlaceList().forEach((place) => {
-        
+        map.bounds.extend(place.latlng);
         place.marker = new google.maps.Marker({
             position: place.latlng,
             icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
             map: map.googleMap
         });
     });
+    map.googleMap.fitBounds(map.bounds);
 };
