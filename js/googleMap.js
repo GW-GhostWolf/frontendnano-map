@@ -10,7 +10,7 @@ map.initMap = function () {
         
         place.marker = new google.maps.Marker({
             position: place.latlng,
-            //icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+            icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
             map: map.googleMap
         });
     });

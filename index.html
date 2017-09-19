@@ -11,7 +11,7 @@
         <input type="text" data-bind="textinput: placeFilter" />
         <button data-bind="click: toggleSidebar" class="hide-gt-xs">Toggle sidebar</button>
         <div data-bind="foreach: filteredPlaces">
-            <place params="{ place: $data }"></place>
+            <place params="{ place: $data }" data-bind="{ click: $parent.selectPlace }"></place>
             <hr />
         </div>
     </div>
