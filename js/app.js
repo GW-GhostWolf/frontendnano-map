@@ -19,20 +19,21 @@ app.toggleDetails = function () {
 };
 
 app.selectPlace = function (selectedPlace) {
-    console.log("click place: ", selectedPlace);
-    if (app.priorPlace) { app.priorPlace.marker.setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png"); }
+    if (app.priorPlace) {
+        app.priorPlace.marker.setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
+        app.priorPlace.selected(false);
+    }
     app.priorPlace = selectedPlace;
     selectedPlace.marker.setIcon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
+    selectedPlace.selected(true);
 };
 
 app.filteredPlaces = ko.computed(function () {
     return ko.utils.arrayFilter(app.PlaceList(), function (place) {
         let showInList = place.name.toLowerCase().indexOf(app.placeFilter().toLowerCase()) > -1;
         if (showInList) {
-            // it is in the list
             if (place.marker && !place.marker.map) { place.marker.setMap(map.googleMap); }
         } else {
-            // it is not in the list
             if (place.marker && place.marker.map) { place.marker.setMap(undefined); }
         }
         return showInList;
