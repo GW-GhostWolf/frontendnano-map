@@ -20,6 +20,13 @@ app.toggleDetails = function () {
 
 app.filteredPlaces = ko.computed(function () {
     return ko.utils.arrayFilter(app.PlaceList(), function (place) {
+        if (place.name.toLowerCase().indexOf(app.placeFilter().toLowerCase()) > -1) {
+            // it is in the list
+            if (place.marker && !place.marker.map) { place.marker.setMap(map.googleMap); }
+        } else {
+            // it is not in the list
+            if (place.marker && place.marker.map) { place.marker.setMap(undefined); }
+        }
         return place.name.toLowerCase().indexOf(app.placeFilter().toLowerCase()) > -1;
     });
 });
