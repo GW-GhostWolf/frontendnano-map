@@ -17,4 +17,5 @@ map.initMap = function () {
         place.marker.addListener("click", () => { app.selectPlace(place); });
     });
     map.googleMap.fitBounds(map.bounds);
+    map.infoWindow = new google.maps.InfoWindow();
 };

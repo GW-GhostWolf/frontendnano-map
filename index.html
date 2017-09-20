@@ -20,7 +20,10 @@
             <button data-bind="click: toggleSidebar">Toggle sidebar</button>
             <button data-bind="click: toggleDetails">Toggle details</button>
         </div>
-        <div id="placeDetails" data-bind="css: { hide: !showDetails() }">
+        <div id="placeDetails" data-bind="css: { hide: !showDetails() }, if: priorPlace">
+            <!--<place params="{ place: priorPlace() }"></place>-->
+            <h4 data-bind="text: priorPlace().name"></h4>
+            <span data-bind="text: priorPlace().street"></span>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>

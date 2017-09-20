@@ -9,6 +9,7 @@ app.showPlaces = ko.observable(false);
 document.body.onresize();
 app.showDetails = ko.observable(false);
 app.placeFilter = ko.observable("");
+app.priorPlace = ko.observable();
 
 app.toggleSidebar = function () {
     app.showPlaces(!app.showPlaces());
@@ -19,13 +20,15 @@ app.toggleDetails = function () {
 };
 
 app.selectPlace = function (selectedPlace) {
-    if (app.priorPlace) {
-        app.priorPlace.marker.setIcon("https://maps.google.com/mapfiles/ms/icons/red-dot.png");
-        app.priorPlace.selected(false);
+    if (app.priorPlace()) {
+        app.priorPlace().marker.setIcon("https://maps.google.com/mapfiles/ms/icons/red-dot.png");
+        app.priorPlace().selected(false);
     }
-    app.priorPlace = selectedPlace;
+    app.priorPlace(selectedPlace);
     selectedPlace.marker.setIcon("https://maps.google.com/mapfiles/ms/icons/green-dot.png");
     selectedPlace.selected(true);
+    map.infoWindow.setContent("<h4>" + selectedPlace.name + "</h4>" + selectedPlace.street + "<br /><a href='javascript:app.toggleDetails();'>More Information</a>");
+    map.infoWindow.open(map.googleMap, selectedPlace.marker);
 };
 
 app.filteredPlaces = ko.computed(function () {
