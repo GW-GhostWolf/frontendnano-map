@@ -11,7 +11,7 @@ map.initMap = function () {
         map.bounds.extend(place.latlng);
         place.marker = new google.maps.Marker({
             position: place.latlng,
-            icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+            icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
             map: map.googleMap
         });
     });

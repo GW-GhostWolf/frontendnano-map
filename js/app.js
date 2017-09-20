@@ -20,11 +20,11 @@ app.toggleDetails = function () {
 
 app.selectPlace = function (selectedPlace) {
     if (app.priorPlace) {
-        app.priorPlace.marker.setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
+        app.priorPlace.marker.setIcon("https://maps.google.com/mapfiles/ms/icons/red-dot.png");
         app.priorPlace.selected(false);
     }
     app.priorPlace = selectedPlace;
-    selectedPlace.marker.setIcon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
+    selectedPlace.marker.setIcon("https://maps.google.com/mapfiles/ms/icons/green-dot.png");
     selectedPlace.selected(true);
 };
 
