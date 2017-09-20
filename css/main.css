@@ -63,7 +63,7 @@ html, body {
     text-align: right;
 }
 
-#map {
+#mapDiv {
     background-color: blue;
     height: 100%;
 }
