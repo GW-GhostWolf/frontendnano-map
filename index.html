@@ -5,11 +5,17 @@
     <title>Magic Kingdom</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="css/main.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
     <div id="placesList" data-bind="css: { hide: !showPlaces() }">
-        <input type="text" data-bind="textinput: placeFilter" />
+        <i class="fa fa-filter" aria-hidden="true"></i><input type="text" aria-label="Filter" data-bind="textinput: placeFilter" />
+        <br/>
+        <input type="checkbox" value="ride" data-bind="checked: categoryFilter" />Ride
+        <input type="checkbox" value="entertainment" data-bind="checked: categoryFilter" />Show
+        <input type="checkbox" value="character" data-bind="checked: categoryFilter" />Meet
         <button data-bind="click: toggleSidebar" class="hide-gt-xs">Toggle sidebar</button>
+        <hr />
         <div data-bind="foreach: filteredPlaces">
             <place params="{ place: $data }" data-bind="{ click: $parent.selectPlace }"></place>
             <hr />

@@ -79,6 +79,15 @@ html, body {
     }
 }
 
+
+.large-text {
+    font-size: 1.3em;
+}
+
+.line-padding {
+    line-height: 1.3;
+}
+
 .remove-margin {
     margin: 0;
 }
