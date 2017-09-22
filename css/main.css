@@ -49,13 +49,6 @@ html, body {
     background-color: #f0f0f0;
 }
 
-.place address {
-    font-size: 0.7em;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
 #mapcontainer {
     position: relative;
     overflow: hidden;
@@ -63,12 +56,12 @@ html, body {
 }
 
 #mapDiv {
-    background-color: blue;
     height: 100%;
 }
 
 #placeDetails {
-    background-color: green;
+    background-color: black;
+    color: white;
     position: absolute;
     top: calc(100% - 250px);
     height: 250px;
@@ -84,4 +77,12 @@ html, body {
     .hide-gt-xs {
         display: none;
     }
+}
+
+.remove-margin {
+    margin: 0;
+}
+
+.small-text {
+    font-size: 0.7em;
 }

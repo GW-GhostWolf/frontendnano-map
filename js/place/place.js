@@ -5,6 +5,6 @@
     template: `
         <div class ="place" data-bind="{ css: { selected: place.selected() } }">
             <span data-bind="text: place.name"></span>
-            <address data-bind="text: place.street"></address>
+            <address class="small-text" data-bind="text: place.category"></address>
         </div>`
 });

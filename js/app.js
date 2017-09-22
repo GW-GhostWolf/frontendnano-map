@@ -32,8 +32,16 @@ app.selectPlace = function (selectedPlace) {
     app.priorPlace(selectedPlace);
     selectedPlace.marker.setIcon("https://maps.google.com/mapfiles/ms/icons/green-dot.png");
     selectedPlace.selected(true);
-    map.infoWindow.setContent("<h4>" + selectedPlace.name + "</h4>" + selectedPlace.street + "<br /><a href='javascript:app.toggleDetails();'>More Information</a>");
-    map.infoWindow.open(map.googleMap, selectedPlace.marker);
+    $.getJSON("https://gw-ghostwolf.github.io/frontendnano-map/data/" + selectedPlace.dataLink + ".json", (data) => {
+        map.infoWindow.setContent("<h3 class='remove-margin'>" + selectedPlace.name + "</h4>" +
+            data.what_it_is + "<br />" +
+            (data.not_to_be_missed ? "This is a MUST DO!<br />" : "") +
+            (data.intense ? "" : "Not ") + "Intense, " + (data.frightening ? "" : "Not ") + "Frightening <br />" +
+            (data.height_restriction ? "Minimum Height: " + data.height_restriction + "\" <br />" : "") +
+            "<a href='javascript:app.toggleDetails();'>Show Pictures</a><br />" +
+            "<span class='small-text'>* Data courtesy of <a href='https://touringplans.com/magic-kingdom/attractions/" + selectedPlace.dataLink + "' target='_blank'>Touring Plans</a></span>");
+        map.infoWindow.open(map.googleMap, selectedPlace.marker);
+    });
 };
 
 app.filteredPlaces = ko.computed(function () {
