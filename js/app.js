@@ -11,6 +11,11 @@ app.showDetails = ko.observable(false);
 app.placeFilter = ko.observable("");
 app.priorPlace = ko.observable();
 
+app.PlaceList = ko.observableArray([]);
+app.rawData.forEach((rawPlace) => {
+    app.PlaceList().push(new app.Place(rawPlace));
+});
+
 app.toggleSidebar = function () {
     app.showPlaces(!app.showPlaces());
 };

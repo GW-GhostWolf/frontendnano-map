@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>San Antonio Museums</title>
+    <title>Magic Kingdom</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="css/main.css" rel="stylesheet" />
 </head>
@@ -21,7 +21,6 @@
             <button data-bind="click: toggleDetails">Toggle details</button>
         </div>
         <div id="placeDetails" data-bind="css: { hide: !showDetails() }, if: priorPlace">
-            <!--<place params="{ place: priorPlace() }"></place>-->
             <h4 data-bind="text: priorPlace().name"></h4>
             <span data-bind="text: priorPlace().street"></span>
         </div>
