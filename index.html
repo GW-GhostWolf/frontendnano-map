@@ -8,13 +8,17 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
+    <!-- ko if: allowHidePlaces() -->
+    <button id="mobileToggle" data-bind="click: toggleSidebar, css: { hide: !showPlaces() }">
+        <i class="fa fa-bars fa-2x"></i>
+    </button>
+    <!-- /ko -->
     <div id="placesList" data-bind="css: { hide: !showPlaces() }">
         <i class="fa fa-filter" aria-hidden="true"></i><input type="text" aria-label="Filter" data-bind="textinput: placeFilter" />
-        <br/>
+        <br />
         <input type="checkbox" value="ride" data-bind="checked: categoryFilter" />Ride
         <input type="checkbox" value="entertainment" data-bind="checked: categoryFilter" />Show
         <input type="checkbox" value="character" data-bind="checked: categoryFilter" />Meet
-        <button data-bind="click: toggleSidebar" class="hide-gt-xs">Toggle sidebar</button>
         <hr />
         <div data-bind="foreach: filteredPlaces">
             <place params="{ place: $data }" data-bind="{ click: $parent.selectPlace }"></place>
@@ -22,10 +26,7 @@
         </div>
     </div>
     <div id="mapcontainer">
-        <div id="mapDiv">
-            <button data-bind="click: toggleSidebar">Toggle sidebar</button>
-            <button data-bind="click: toggleDetails">Toggle details</button>
-        </div>
+        <div id="mapDiv"></div>
         <div id="placeDetails" data-bind="css: { hide: !showDetails() }, if: priorPlace">
             <h4 data-bind="text: priorPlace().name"></h4>
             <span data-bind="text: priorPlace().street"></span>

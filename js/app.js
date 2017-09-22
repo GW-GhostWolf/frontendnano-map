@@ -2,9 +2,11 @@
 var app = app || {};
 
 document.body.onresize = function () {
+    app.allowHidePlaces(document.body.clientWidth <= 576);
     app.showPlaces(document.body.clientWidth > 576);
 }
 
+app.allowHidePlaces = ko.observable(false);
 app.showPlaces = ko.observable(false);
 document.body.onresize();
 app.showDetails = ko.observable(false);
