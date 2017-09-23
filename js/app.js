@@ -7,6 +7,7 @@ document.body.onresize = function () {
 }
 
 // base view model
+app.flikrError = ko.observable(false);
 app.showPlaces = ko.observable(false);
 app.showDetails = ko.observable(false);
 app.placeFilter = ko.observable("");
@@ -30,6 +31,7 @@ app.toggleDetails = function () {
 
 // change selected place
 app.selectPlace = function (selectedPlace) {
+    let infoContents = "";
     // verfiy that the selection actuall changed
     if (app.priorPlace() && app.priorPlace().name === selectedPlace.name) { return; }
     // reset marker and selected place status for prior selected place
@@ -41,18 +43,31 @@ app.selectPlace = function (selectedPlace) {
     selectedPlace.marker.setIcon("https://maps.google.com/mapfiles/ms/icons/green-dot.png");
     selectedPlace.selected(true);
     // get server data (details) regarding the place and assign to the map's infowindow
-    $.getJSON("https://gw-ghostwolf.github.io/frontendnano-map/data/" + selectedPlace.dataLink + ".json", (data) => {
-        map.infoWindow.setContent("<div class='line-padding'>" + 
-            "<h3 class='remove-margin'>" + selectedPlace.name + "</h4>" +
-            "<span class='large-text'>" + data.what_it_is + "</span><br />" +
-            (data.not_to_be_missed ? "This is a MUST DO!<br />" : "") +
-            (data.intense ? "" : "Not ") + "Intense, " + (data.frightening ? "" : "Not ") + "Frightening <br />" +
-            (data.height_restriction ? "Minimum Height: " + data.height_restriction + "\" <br />" : "") +
-            "<a href='javascript:app.toggleDetails();'>Show Pictures</a><br />" +
-            "<span class='small-text'>* Data courtesy of <a href='https://touringplans.com/magic-kingdom/attractions/" + selectedPlace.dataLink + "' target='_blank'>Touring Plans</a></span>" + 
-            "</div>");
-        map.infoWindow.open(map.googleMap, selectedPlace.marker);
-    });
+    $.getJSON("https://gw-ghostwolf.github.io/frontendnano-map/data/" + selectedPlace.dataLink + ".json")
+        .done((data) => {
+            infoContents = "<div class='line-padding'>" +
+                "<h3 class='remove-margin'>" + selectedPlace.name + "</h4>" +
+                "<span class='large-text'>" + data.what_it_is + "</span><br />" +
+                (data.not_to_be_missed ? "This is a MUST DO!<br />" : "") +
+                (data.intense ? "" : "Not ") + "Intense, " + (data.frightening ? "" : "Not ") + "Frightening <br />" +
+                (data.height_restriction ? "Minimum Height: " + data.height_restriction + "\" <br />" : "") +
+                "<a href='javascript:app.toggleDetails();'>Show Pictures</a><br />" +
+                "<span class='small-text'>* Data courtesy of <a href='https://touringplans.com/magic-kingdom/attractions/" + selectedPlace.dataLink + "' target='_blank'>Touring Plans</a></span>" +
+                "</div>";
+        })
+        .fail((err) => {
+            console.log("Error communicating with GitHub copy of Touring Plans data", err);
+            app.tpError(true);
+            infoContents = "<div class='line-padding'>" +
+                "<h3 class='remove-margin'>" + selectedPlace.name + "</h4>" +
+                "Error Retrieving additional data <br />" +
+                "<span class='small-text'>* Data courtesy of <a href='https://touringplans.com/magic-kingdom/attractions/" + selectedPlace.dataLink + "' target='_blank'>Touring Plans</a></span>" +
+                "</div>";
+        })
+        .always(() => {
+            map.infoWindow.setContent(infoContents);
+            map.infoWindow.open(map.googleMap, selectedPlace.marker);
+        });
     // if there are no photos cached, get photos
     if (selectedPlace.photos().length === 0) {
         selectedPlace.getMorePhotos();

@@ -18,16 +18,21 @@ app.Place.prototype.getMorePhotos = function () {
     // only make one request at a time
     if (!self.requestInProgress) {
         self.requestInProgress = true;
-        $.getJSON("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=c7be92e6651caf2578d90bdd0fc3d515&text=&accuracy=16&lat=" + self.latlng.lat + "&lon=" + self.latlng.lng + "&radius=.025&extras=url_s&per_page=10&page=" + self.currentPage + "&format=json&nojsoncallback=1", (data) => {
-            if (data.stat === "ok") {
-                // add returned photos to cache
-                data.photos.photo.forEach((photo) => {
-                    app.priorPlace().photos.push(photo);
-                });
-                self.currentPage++;
-            }
-            self.requestInProgress = false;
-        });
+        $.getJSON("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=c7be92e6651caf2578d90bdd0fc3d515&text=&accuracy=16&lat=" + self.latlng.lat + "&lon=" + self.latlng.lng + "&radius=.025&extras=url_s&per_page=10&page=" + self.currentPage + "&format=json&nojsoncallback=1")
+            .done((data) => {
+                if (data.stat === "ok") {
+                    // add returned photos to cache
+                    data.photos.photo.forEach((photo) => {
+                        app.priorPlace().photos.push(photo);
+                    });
+                    self.currentPage++;
+                }
+                self.requestInProgress = false;
+            })
+            .fail((err) => {
+                console.log("Error communicating with Flikr", err);
+                app.flikrError(true);
+            });
     }
 }
 
