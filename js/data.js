@@ -36,6 +36,70 @@ app.Place.prototype.getMorePhotos = function () {
     }
 }
 
+// function to change values when selected
+app.Place.prototype.setSelected = function (isSelected) {
+    let self = this;
+    let infoContents = "";
+    // mark as not selected
+    self.selected(isSelected);
+    // set marker icon
+    self.setIcon();
+    if (isSelected) {
+        // get server data (details) regarding the place and assign to the map's infowindow
+        $.getJSON("https://gw-ghostwolf.github.io/frontendnano-map/data/" + self.dataLink + ".json")
+            .done((data) => {
+                infoContents = "<div class='line-padding'>" +
+                    "<h3 class='remove-margin'>" + self.name + "</h4>" +
+                    "<span class='large-text'>" + data.what_it_is + "</span><br />" +
+                    (data.not_to_be_missed ? "This is a MUST DO!<br />" : "") +
+                    (data.intense ? "" : "Not ") + "Intense, " + (data.frightening ? "" : "Not ") + "Frightening <br />" +
+                    (data.height_restriction ? "Minimum Height: " + data.height_restriction + "\" <br />" : "") +
+                    "<a href='javascript:app.toggleDetails();'>Show Pictures</a><br />" +
+                    "<span class='small-text'>* Data courtesy of <a href='https://touringplans.com/magic-kingdom/attractions/" + self.dataLink + "' target='_blank'>Touring Plans</a></span>" +
+                    "</div>";
+            })
+            .fail((err) => {
+                console.log("Error communicating with GitHub copy of Touring Plans data", err);
+                app.tpError(true);
+                infoContents = "<div class='line-padding'>" +
+                    "<h3 class='remove-margin'>" + self.name + "</h4>" +
+                    "Error Retrieving additional data <br />" +
+                    "<span class='small-text'>* Data courtesy of <a href='https://touringplans.com/magic-kingdom/attractions/" + self.dataLink + "' target='_blank'>Touring Plans</a></span>" +
+                    "</div>";
+            })
+            .always(() => {
+                map.infoWindow.setContent(infoContents);
+                map.infoWindow.open(map.googleMap, self.marker);
+            });
+        // if there are no photos cached, get photos
+        if (self.photos().length === 0) {
+            self.getMorePhotos();
+        }
+    }
+}
+
+// function to set icon based on category and selected
+app.Place.prototype.setIcon = function () {
+    if (this.selected()) {
+        this.marker.setIcon("https://maps.google.com/mapfiles/ms/icons/red-pushpin.png");
+    } else {
+        switch (this.category) {
+            case "ride":
+                this.marker.setIcon("https://maps.google.com/mapfiles/kml/pal4/icon39.png");
+                break;
+            case "entertainment":
+                this.marker.setIcon("https://maps.google.com/mapfiles/ms/icons/movies.png");
+                break;
+            case "character":
+                this.marker.setIcon("https://maps.google.com/mapfiles/ms/icons/arts.png");
+                break;
+            default:
+                this.marker.setIcon("https://maps.google.com/mapfiles/ms/icons/red-dot.png");
+                break;
+        }
+    }
+}
+
 // raw data, list from TouringPlaces.com, GPS locations from Google Maps
 app.rawData = [
  {

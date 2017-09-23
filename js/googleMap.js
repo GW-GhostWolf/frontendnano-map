@@ -17,11 +17,11 @@ map.initMap = function () {
         // add marker to map and cache in the place object
         place.marker = new google.maps.Marker({
             position: place.latlng,
-            icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
             map: map.googleMap
         });
         // add marker event listner
         place.marker.addListener("click", () => { app.selectPlace(place); });
+        place.setIcon();
     });
     // adjust map based on places in list
     map.googleMap.fitBounds(map.bounds);
