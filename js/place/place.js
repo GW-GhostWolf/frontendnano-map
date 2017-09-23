@@ -1,4 +1,5 @@
-﻿ko.components.register("place", {
+﻿// create knockoutjs component for place list item
+ko.components.register("place", {
     viewModel: function (params) {
         this.place = params.place;
     },

@@ -1,6 +1,7 @@
 ﻿"use strict";
 var app = app || {};
 
+// create Place class to store data on each location
 app.Place = function (dataObject) {
     this.name = dataObject.name;
     this.latlng = { lat: dataObject.latitude, lng: dataObject.longitude };
@@ -11,13 +12,15 @@ app.Place = function (dataObject) {
     this.currentPage = 1;
 }
 
+// function to retrieve additional photos from flikr
 app.Place.prototype.getMorePhotos = function () {
     let self = this;
+    // only make one request at a time
     if (!self.requestInProgress) {
         self.requestInProgress = true;
         $.getJSON("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=c7be92e6651caf2578d90bdd0fc3d515&text=&accuracy=16&lat=" + self.latlng.lat + "&lon=" + self.latlng.lng + "&radius=.025&extras=url_s&per_page=10&page=" + self.currentPage + "&format=json&nojsoncallback=1", (data) => {
-            console.log(data);
             if (data.stat === "ok") {
+                // add returned photos to cache
                 data.photos.photo.forEach((photo) => {
                     app.priorPlace().photos.push(photo);
                 });
@@ -28,6 +31,7 @@ app.Place.prototype.getMorePhotos = function () {
     }
 }
 
+// raw data, list from TouringPlaces.com, GPS locations from Google Maps
 app.rawData = [
  {
      "name": "Ariel",
