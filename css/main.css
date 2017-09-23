@@ -30,7 +30,8 @@ html, body {
 }
 
 #placesList {
-    background-color: white;
+    background-color: black;
+    color: white;
     min-width: 250px;
     max-width: 250px;
     height: 100%;
@@ -57,11 +58,11 @@ html, body {
 }
 
 .place.selected {
-    background-color: lightgray;
+    background-color: dimgray;
 }
 
 .place:hover {
-    background-color: #f0f0f0;
+    background-color: darkgray;
 }
 
 #mapcontainer {
