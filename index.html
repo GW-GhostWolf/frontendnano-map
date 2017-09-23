@@ -25,7 +25,7 @@
     </div>
     <div id="mapcontainer">
         <div id="mapDiv"></div>
-        <div id="placeDetails" data-bind="css: { hide: !showDetails() }, if: priorPlace">
+        <div id="placeDetails" data-bind="css: { hide: !showDetails() }, if: priorPlace, event: { scroll: scrolled }">
             <!-- ko foreach: priorPlace().photos -->
             <img data-bind="attr: { src: url_s, alt: title }" />
             <!-- /ko -->

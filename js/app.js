@@ -48,14 +48,7 @@ app.selectPlace = function (selectedPlace) {
         map.infoWindow.open(map.googleMap, selectedPlace.marker);
     });
     if (selectedPlace.photos().length === 0) {
-        $.getJSON("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=489c2a56dc966fae2ae3c95e22bbf397&text=&accuracy=16&lat=" + selectedPlace.latlng.lat + "&lon=" + selectedPlace.latlng.lng + "&radius=.025&extras=url_s&per_page=10&page=1&format=json&nojsoncallback=1", (data) => {
-            console.log(data);
-            if (data.stat === "ok") {
-                data.photos.photo.forEach((photo) => {
-                    app.priorPlace().photos.push(photo);
-                });
-            }
-        });
+        selectedPlace.getMorePhotos();
     }
 };
 
@@ -72,5 +65,14 @@ app.filteredPlaces = ko.computed(function () {
         return showInList;
     });
 });
+
+app.scrolled = function (data, event) {
+    let elem = event.target;
+    console.log(elem.scrollWidth, elem.scrollLeft, elem.offsetWidth);
+    if (elem.scrollLeft + elem.offsetWidth + 200 > elem.scrollWidth) {
+        app.priorPlace().getMorePhotos();
+        console.log("need more pictures");
+    }
+}
 
 ko.applyBindings(app);

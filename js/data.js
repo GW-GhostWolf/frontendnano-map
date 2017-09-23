@@ -8,6 +8,24 @@ app.Place = function (dataObject) {
     this.dataLink = dataObject.touringPlansLink;
     this.selected = ko.observable(false);
     this.photos = ko.observableArray([]);
+    this.currentPage = 1;
+}
+
+app.Place.prototype.getMorePhotos = function () {
+    let self = this;
+    if (!self.requestInProgress) {
+        self.requestInProgress = true;
+        $.getJSON("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=c7be92e6651caf2578d90bdd0fc3d515&text=&accuracy=16&lat=" + self.latlng.lat + "&lon=" + self.latlng.lng + "&radius=.025&extras=url_s&per_page=10&page=" + self.currentPage + "&format=json&nojsoncallback=1", (data) => {
+            console.log(data);
+            if (data.stat === "ok") {
+                data.photos.photo.forEach((photo) => {
+                    app.priorPlace().photos.push(photo);
+                });
+                self.currentPage++;
+            }
+            self.requestInProgress = false;
+        });
+    }
 }
 
 app.rawData = [
