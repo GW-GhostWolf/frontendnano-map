@@ -7,6 +7,7 @@ app.Place = function (dataObject) {
     this.category = dataObject.category;
     this.dataLink = dataObject.touringPlansLink;
     this.selected = ko.observable(false);
+    this.photos = ko.observableArray([]);
 }
 
 app.rawData = [
@@ -105,15 +106,15 @@ app.rawData = [
      "name": "Festival of Fantasy Parade",
      "touringPlansLink": "festival-fantasy-parade",
      "category": "entertainment",
-     "latitude": 28.416481,
-     "longitude": -81.581203
+     "latitude": 28.418448,
+     "longitude": -81.581286
  },
  {
      "name": "Flag Retreat",
      "touringPlansLink": "flag-retreat",
      "category": "entertainment",
-     "latitude": 28.416481,
-     "longitude": -81.581203
+     "latitude": 28.416752,
+     "longitude": -81.581197
  },
  {
      "name": "Frontierland Railroad",
@@ -147,8 +148,8 @@ app.rawData = [
      "name": "Happily Ever After Fireworks",
      "touringPlansLink": "happily-ever-after",
      "category": "entertainment",
-     "latitude": 28.416481,
-     "longitude": -81.581203
+     "latitude": 28.418882,
+     "longitude": -81.581210
  },
  {
      "name": "Haunted Mansion",

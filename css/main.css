@@ -77,9 +77,13 @@ html, body {
 #placeDetails {
     background-color: black;
     color: white;
+    height: 250px;
+    padding: 5px;
     position: absolute;
     top: calc(100% - 250px);
-    height: 250px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
     width: 100%;
     z-index: 5;
 }
@@ -88,12 +92,29 @@ html, body {
     top: 100%;
 }
 
+#placeDetails img {
+    border-radius: 10px;
+    height: calc(100% - 10px - 0.6em);
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.photo-footer {
+    align-items: center;
+    display: flex;
+    position: fixed;
+    width: calc(100vw - 260px);
+}
+
+.photo-footer span {
+    flex-grow: 1;
+}
+
 @media (min-width: 576px) {
     .hide-gt-xs {
         display: none;
     }
 }
-
 
 .large-text {
     font-size: 1.3em;
