@@ -1,4 +1,4 @@
-﻿var app = app || {};
+var app = app || {};
 
 // watch for resize event in browser to hide places menu if the screen is too small
 document.body.onresize = function () {

@@ -1,4 +1,4 @@
-﻿"use strict";
+﻿ "use strict";
 var app = app || {};
 
 // create Place class to store data on each location
