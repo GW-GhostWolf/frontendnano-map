@@ -24,20 +24,21 @@ map.mapError = function () {
 };
 
 map.addPlaces = function (places) {
-    // add marker for each place in the list
-    places.forEach((place) => {
-        // adjust bounds to include place
-        map.bounds.extend(place.latlng);
-        // add marker to map and cache in the place object
-        place.marker = new google.maps.Marker({
-            position: place.latlng,
-            map: map.googleMap
+    if (map.googleMap) {
+        // add marker for each place in the list
+        places.forEach((place) => {
+            // adjust bounds to include place
+            map.bounds.extend(place.latlng);
+            // add marker to map and cache in the place object
+            place.marker = new google.maps.Marker({
+                position: place.latlng,
+                map: map.googleMap
+            });
+            // add marker event listner
+            place.marker.addListener("click", () => { app.selectPlace(place); });
+            place.setIcon();
         });
-        // add marker event listner
-        place.marker.addListener("click", () => { app.selectPlace(place); });
-        place.setIcon();
-    });
-    // adjust map based on places in list
-    map.googleMap.fitBounds(map.bounds);
-
+        // adjust map based on places in list
+        map.googleMap.fitBounds(map.bounds);
+    }
 }
