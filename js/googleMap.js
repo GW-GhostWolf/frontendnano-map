@@ -10,8 +10,22 @@ map.initMap = function () {
     });
     // create bounding object to calculate bounds
     map.bounds = new google.maps.LatLngBounds();
+    // add single infowindow that will update each time the selected place changes
+    map.infoWindow = new google.maps.InfoWindow();
+    // review 1 (tip) - add event listener to reset map bounds on window resize
+    google.maps.event.addDomListener(window, 'resize', function () {
+        map.googleMap.fitBounds(map.bounds); // `bounds` is a `LatLngBounds` object
+    });
+    map.addPlaces(app.PlaceList());
+};
+
+map.mapError = function () {
+    app.mapError(true);
+};
+
+map.addPlaces = function (places) {
     // add marker for each place in the list
-    app.PlaceList().forEach((place) => {
+    places.forEach((place) => {
         // adjust bounds to include place
         map.bounds.extend(place.latlng);
         // add marker to map and cache in the place object
@@ -25,6 +39,5 @@ map.initMap = function () {
     });
     // adjust map based on places in list
     map.googleMap.fitBounds(map.bounds);
-    // add single infowindow that will update each time the selected place changes
-    map.infoWindow = new google.maps.InfoWindow();
-};
+
+}

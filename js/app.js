@@ -7,6 +7,7 @@ document.body.onresize = function () {
 
 // base view model
 app.flikrError = ko.observable(false);
+app.mapError = ko.observable(false);
 app.showPlaces = ko.observable(false);
 app.showDetails = ko.observable(false);
 app.placeFilter = ko.observable("");
@@ -14,9 +15,19 @@ app.categoryFilter = ko.observableArray();
 app.priorPlace = ko.observable();
 // add list of places from raw data
 app.PlaceList = ko.observableArray([]);
-app.rawData.forEach((rawPlace) => {
-    app.PlaceList().push(new app.Place(rawPlace));
-});
+
+// raw data json object from server
+$.getJSON("https://gw-ghostwolf.github.io/frontendnano-map/data/rawPlaces.json")
+    .done((rawData) => {
+        rawData.forEach((rawPlace) => {
+            app.PlaceList.push(new app.Place(rawPlace));
+        });
+        map.addPlaces(app.PlaceList());
+    })
+    .fail((err) => {
+        console.log("Error communicating with GitHub copy of Touring Plans data", err);
+        app.initData([{ name: "Unable to load data", latitude: 28.418882, longitude: -81.581210, touringPlansLink: "" }]);
+    });
 
 // show / hide the places on the left side - only used on small screens
 app.toggleSidebar = function () {
@@ -35,7 +46,8 @@ app.selectPlace = function (selectedPlace) {
     // deselect the prior selection
     if (app.priorPlace()) { app.priorPlace().setSelected(false); }
     // center the map
-    map.googleMap.setCenter(selectedPlace.marker.getPosition());
+    if (map.googleMap) { map.googleMap.setCenter(selectedPlace.marker.getPosition()); }
+    else { app.showDetails(true); }
     // select the new place
     selectedPlace.setSelected(true);
     // set current place to be the prior place for next selection
@@ -50,11 +62,8 @@ app.filteredPlaces = ko.computed(function () {
             place.name.toLowerCase().indexOf(app.placeFilter().toLowerCase()) > -1 && 
             // verify that the category is selected or no category (all) is selected
             (app.categoryFilter().length === 0 || app.categoryFilter().join(",").indexOf(place.category) > -1);
-        if (showInList) {
-            if (place.marker && !place.marker.map) { place.marker.setMap(map.googleMap); }
-        } else {
-            if (place.marker && place.marker.map) { place.marker.setMap(undefined); }
-        }
+        // review 1 (tip) - use marker.setVisible instead of marker.setMap for better performance
+        if (place.marker) { place.marker.setVisible(showInList); }
         return showInList;
     });
 });
