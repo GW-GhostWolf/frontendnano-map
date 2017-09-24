@@ -1,10 +1,9 @@
-﻿"use strict";
-var app = app || {};
+﻿var app = app || {};
 
 // watch for resize event in browser to hide places menu if the screen is too small
 document.body.onresize = function () {
     app.showPlaces(document.body.clientWidth > 576);
-}
+};
 
 // base view model
 app.flikrError = ko.observable(false);
@@ -48,9 +47,9 @@ app.filteredPlaces = ko.computed(function () {
     return ko.utils.arrayFilter(app.PlaceList(), function (place) {
         let showInList =
             // verify that the place name matches the text filter
-            place.name.toLowerCase().indexOf(app.placeFilter().toLowerCase()) > -1
+            place.name.toLowerCase().indexOf(app.placeFilter().toLowerCase()) > -1 && 
             // verify that the category is selected or no category (all) is selected
-            && (app.categoryFilter().length === 0 || app.categoryFilter().join(",").indexOf(place.category) > -1);
+            (app.categoryFilter().length === 0 || app.categoryFilter().join(",").indexOf(place.category) > -1);
         if (showInList) {
             if (place.marker && !place.marker.map) { place.marker.setMap(map.googleMap); }
         } else {
@@ -66,7 +65,7 @@ app.scrolled = function (data, event) {
     if (elem.scrollLeft + elem.offsetWidth + 200 > elem.scrollWidth) {
         app.priorPlace().getMorePhotos();
     }
-}
+};
 
 // bootstrap application by checking the size of the window and applying the knockoutjs viewmodel
 document.body.onresize();
